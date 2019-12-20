@@ -1,0 +1,16 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1",
+        "title": "Vimeo API",
+        "description": "The only way to perform authenticated read\/write requests on videos, users, groups, channels, albums, or upload.",
+        "termsOfService": "https:\/\/developer.vimeo.com\/guidelines\/terms"
+    },
+    "servers": [
+        "httpsapi.vimeo.com\/"
+    ],
+    "paths": [],
+    "components": {
+        "schemas": []
+    }
+}
