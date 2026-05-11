@@ -1,0 +1,65 @@
+aid: vimeo
+name: Vimeo
+description: >-
+  Vimeo is a video hosting, creation, and streaming platform for creators,
+  businesses, and enterprises that provides ad-free video hosting, live
+  streaming, video editing, analytics, and OTT distribution. The Vimeo
+  REST API enables programmatic upload, management, embedding, and
+  analytics of videos, albums, channels, groups, and users using Bearer
+  token (OAuth 2.0) authentication.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Video
+  - Streaming
+  - Video Hosting
+  - Live Streaming
+  - Media
+  - OTT
+url: https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: vimeo:rest-api
+    name: Vimeo API
+    description: >-
+      REST API for uploading, managing, and streaming videos along with
+      albums, channels, groups, users, comments, captions, live events,
+      and analytics. Authentication uses OAuth 2.0 Bearer tokens.
+    humanURL: https://developer.vimeo.com/api/reference
+    baseURL: https://api.vimeo.com
+    tags:
+      - Video
+      - Upload
+      - Streaming
+      - Live Events
+      - Channels
+      - Analytics
+    properties:
+      - type: Documentation
+        url: https://developer.vimeo.com/api/reference
+      - type: Getting Started
+        url: https://developer.vimeo.com/api/guides/start
+      - type: Authentication
+        url: https://developer.vimeo.com/api/authentication
+      - type: OpenAPI
+        url: https://github.com/vimeo/openapi/blob/master/api.yaml
+      - type: OpenAPI Source
+        url: https://github.com/vimeo/openapi
+common:
+  - type: Website
+    url: https://vimeo.com
+  - type: Documentation
+    url: https://developer.vimeo.com/
+  - type: Developer Portal
+    url: https://developer.vimeo.com/
+  - type: Sign Up
+    url: https://vimeo.com/join
+  - type: Pricing
+    url: https://vimeo.com/upgrade
+  - type: GitHub Organization
+    url: https://github.com/vimeo
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
