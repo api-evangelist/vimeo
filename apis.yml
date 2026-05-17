@@ -39,7 +39,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.vimeo.com/api/reference
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.vimeo.com/api/guides/start
       - type: Authentication
         url: https://developer.vimeo.com/api/authentication
@@ -54,11 +54,11 @@ common:
     url: https://developer.vimeo.com/
   - type: Developer Portal
     url: https://developer.vimeo.com/
-  - type: Sign Up
+  - type: SignUp
     url: https://vimeo.com/join
   - type: Pricing
     url: https://vimeo.com/upgrade
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/vimeo
 maintainers:
   - FN: Kin Lane
