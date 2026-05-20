@@ -48,6 +48,8 @@ apis:
       - type: OpenAPI Source
         url: https://github.com/vimeo/openapi
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/vimeo
   - type: Website
     url: https://vimeo.com
   - type: Documentation
