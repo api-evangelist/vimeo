@@ -18,7 +18,7 @@ tags:
   - OTT
 url: https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - aid: vimeo:rest-api
@@ -47,6 +47,38 @@ apis:
         url: https://github.com/vimeo/openapi/blob/master/api.yaml
       - type: OpenAPI Source
         url: https://github.com/vimeo/openapi
+  - aid: vimeo:webhooks
+    name: Vimeo Webhooks
+    description: >-
+      AsyncAPI 2.6 specification for Vimeo's documented webhook surface,
+      covering the Vimeo OTT customer and subscription lifecycle topics
+      (customer.created, customer.product.renewed, customer.tvod.created,
+      and related events) delivered via HTTPS POST to a subscriber URL.
+      Vimeo's standard API webhooks (App Webhooks) are configured per
+      API app from the developer dashboard. Note: Vimeo's official
+      documentation states the standard API does not currently emit a
+      webhook on transcode completion; transcode status must be polled.
+    humanURL: https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
+    baseURL: https://api.vimeo.com
+    tags:
+      - Webhooks
+      - Events
+      - OTT
+      - Subscriptions
+      - AsyncAPI
+    properties:
+      - type: Documentation
+        url: https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
+      - type: Payload Reference
+        url: https://help.vimeo.com/hc/en-us/articles/12427295198609-Properties-of-a-webhook-payload-on-Vimeo-OTT
+      - type: Setup Guide
+        url: https://help.vimeo.com/hc/en-us/articles/12427285998225-Create-a-Vimeo-OTT-webhook
+      - type: App Webhook Reference
+        url: https://developer.vimeo.com/api/reference/response/api-app-webhook
+      - type: Transcode Status Note
+        url: https://help.vimeo.com/hc/en-us/articles/12427776744593-Get-video-transcode-status-from-the-API
+      - type: AsyncAPI
+        url: https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/openapi/vimeo-asyncapi.yml
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/vimeo

@@ -1,0 +1,348 @@
+asyncapi: '2.6.0'
+info:
+  title: Vimeo Webhooks API
+  version: '1.0.0'
+  description: |
+    AsyncAPI specification for Vimeo's documented webhook surface.
+
+    Vimeo exposes two distinct webhook mechanisms:
+
+    1. **Vimeo OTT webhooks** — fully documented customer and subscription
+       lifecycle events emitted by Vimeo OTT (subscription video on demand
+       and TVOD). Configured per OTT site and delivered via HTTPS POST to a
+       subscriber-provided URL. See:
+       https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
+       https://help.vimeo.com/hc/en-us/articles/12427295198609-Properties-of-a-webhook-payload-on-Vimeo-OTT
+       https://help.vimeo.com/hc/en-us/articles/12427285998225-Create-a-Vimeo-OTT-webhook
+
+    2. **Vimeo standard API webhooks (App Webhooks)** — configured per API
+       app via the Vimeo developer dashboard (the "App Webhooks" section).
+       The webhook object exposes `webhook_id`, `webhook_type`, and
+       `webhook_url` fields on the API App response. See:
+       https://developer.vimeo.com/api/reference/response/api-app-webhook
+
+    Important: Vimeo Help Center explicitly states that the Vimeo API does
+    NOT currently provide a webhook, callback, or push notification when an
+    upload has completed transcoding; status must be retrieved by polling
+    the `transcode.status` field on the video object. See:
+    https://help.vimeo.com/hc/en-us/articles/12427776744593-Get-video-transcode-status-from-the-API
+
+    Only events that appear in Vimeo's official help center / developer
+    reference documentation are modeled here. No event names are inferred
+    or fabricated. Payload property fidelity matches the Vimeo OTT
+    "Properties of a webhook payload on Vimeo OTT" article.
+  contact:
+    name: Vimeo Developer Docs
+    url: https://developer.vimeo.com/api/reference
+  license:
+    name: Vimeo API Terms of Service
+    url: https://developer.vimeo.com/api/changelog
+defaultContentType: application/json
+servers:
+  subscriber:
+    url: '{webhook_url}'
+    protocol: https
+    description: |
+      Subscriber-hosted HTTPS endpoint. The webhook URL is set by the
+      developer when creating the webhook subscription (Vimeo OTT site
+      settings, or the Vimeo developer dashboard for App Webhooks).
+      Vimeo delivers events via HTTPS POST with a JSON body.
+    variables:
+      webhook_url:
+        default: https://example.com/vimeo/webhook
+        description: The subscriber-provided HTTPS URL that receives event deliveries.
+channels:
+  customer.created:
+    description: Emitted when a Vimeo OTT user account is created.
+    subscribe:
+      operationId: onCustomerCreated
+      summary: A user account is created.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.deleted:
+    description: Emitted when a Vimeo OTT user account is deleted.
+    subscribe:
+      operationId: onCustomerDeleted
+      summary: A user account is deleted.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.updated:
+    description: Emitted when a field in a Vimeo OTT user's profile is updated.
+    subscribe:
+      operationId: onCustomerUpdated
+      summary: A field in a user's profile is updated.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.created:
+    description: Emitted when a user is added to a subscription product.
+    subscribe:
+      operationId: onCustomerProductCreated
+      summary: A user is added to a subscription product.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.tvod.created:
+    description: Emitted when a user purchases or rents a TVOD product.
+    subscribe:
+      operationId: onCustomerTvodCreated
+      summary: A user purchases or rents a TVOD product.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.free_trial_created:
+    description: Emitted when a user begins a free trial period for a subscription product.
+    subscribe:
+      operationId: onCustomerProductFreeTrialCreated
+      summary: A user starts a free trial.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.free_trial_converted:
+    description: Emitted when a free trial ends and the first paid charge occurs.
+    subscribe:
+      operationId: onCustomerProductFreeTrialConverted
+      summary: A free trial converts to a paid subscription.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.free_trial_expired:
+    description: Emitted when a free trial ends without the user converting to a paid subscription.
+    subscribe:
+      operationId: onCustomerProductFreeTrialExpired
+      summary: A free trial expires without conversion.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.renewed:
+    description: Emitted when a user's subscription is renewed.
+    subscribe:
+      operationId: onCustomerProductRenewed
+      summary: A user's subscription has been renewed.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.updated:
+    description: Emitted when a user's subscription duration or terms are updated.
+    subscribe:
+      operationId: onCustomerProductUpdated
+      summary: A user's subscription is updated.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.set_paused:
+    description: Emitted when a user initiates a future pause of their subscription.
+    subscribe:
+      operationId: onCustomerProductSetPaused
+      summary: A user schedules a subscription pause.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.undo_set_paused:
+    description: Emitted when a user cancels a scheduled subscription pause.
+    subscribe:
+      operationId: onCustomerProductUndoSetPaused
+      summary: A user cancels a planned subscription pause.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.paused:
+    description: Emitted when a user's subscription is paused.
+    subscribe:
+      operationId: onCustomerProductPaused
+      summary: A user's subscription is paused.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.resumed:
+    description: Emitted when a user resumes a paused subscription.
+    subscribe:
+      operationId: onCustomerProductResumed
+      summary: A user's subscription is resumed.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.set_cancellation:
+    description: Emitted when a user requests cancellation at the end of the current billing cycle.
+    subscribe:
+      operationId: onCustomerProductSetCancellation
+      summary: A user schedules a cancellation.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.undo_set_cancellation:
+    description: Emitted when a user reverses a scheduled cancellation.
+    subscribe:
+      operationId: onCustomerProductUndoSetCancellation
+      summary: A user undoes a scheduled cancellation.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.cancelled:
+    description: Emitted when a user's subscription is cancelled.
+    subscribe:
+      operationId: onCustomerProductCancelled
+      summary: A user's subscription is cancelled.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.expired:
+    description: Emitted when subscription access ends due to non-renewal or billing issues.
+    subscribe:
+      operationId: onCustomerProductExpired
+      summary: A user's subscription expires.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.disabled:
+    description: Emitted when a user can no longer access their subscription.
+    subscribe:
+      operationId: onCustomerProductDisabled
+      summary: A user's subscription is disabled.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.charge_failed:
+    description: Emitted when a user's credit card fails to be charged.
+    subscribe:
+      operationId: onCustomerProductChargeFailed
+      summary: A subscription charge fails.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.set_change:
+    description: Emitted when a user schedules a product change (e.g. plan switch).
+    subscribe:
+      operationId: onCustomerProductSetChange
+      summary: A user schedules a product change.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.undo_set_change:
+    description: Emitted when a user cancels a scheduled product change.
+    subscribe:
+      operationId: onCustomerProductUndoSetChange
+      summary: A user undoes a scheduled product change.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.product.changed:
+    description: Emitted when a scheduled product change completes successfully.
+    subscribe:
+      operationId: onCustomerProductChanged
+      summary: A user's product change takes effect.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.tvod.accessed:
+    description: Emitted when a user accesses TVOD content within their rental/purchase window.
+    subscribe:
+      operationId: onCustomerTvodAccessed
+      summary: A user accesses TVOD content.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+  customer.tvod.expired:
+    description: Emitted when a user's TVOD access period ends.
+    subscribe:
+      operationId: onCustomerTvodExpired
+      summary: A user's TVOD access expires.
+      message:
+        $ref: '#/components/messages/CustomerEvent'
+components:
+  messages:
+    CustomerEvent:
+      name: CustomerEvent
+      title: Vimeo OTT customer lifecycle event
+      summary: |
+        Standardized JSON payload for any Vimeo OTT customer/subscription
+        lifecycle webhook topic, delivered via HTTPS POST.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CustomerEventPayload'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+  schemas:
+    CustomerEventPayload:
+      type: object
+      description: |
+        Vimeo OTT webhook payload as documented in
+        "Properties of a webhook payload on Vimeo OTT"
+        (https://help.vimeo.com/hc/en-us/articles/12427295198609).
+      properties:
+        id:
+          type: integer
+          description: Unique Vimeo OTT user identifier.
+        email:
+          type: string
+          format: email
+          description: The user's email address.
+        first_name:
+          type: string
+          description: The user's first name.
+        last_name:
+          type: string
+          description: The user's last name.
+        name:
+          type: string
+          description: The user's display name.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the user account was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the user account was last updated.
+        location:
+          type: object
+          description: Geographic information for the user (city, region, country).
+          properties:
+            city:
+              type: string
+            region:
+              type: string
+            country:
+              type: string
+        plan:
+          type: string
+          description: The user's current subscription plan name.
+        subscription_status:
+          type: string
+          description: |
+            Current subscription status (e.g. enabled, canceled, paused).
+        subscription_frequency:
+          type: string
+          description: |
+            Billing interval (e.g. monthly, annual, custom).
+        subscription_price:
+          type: number
+          description: Subscription cost in cents.
+        campaign:
+          type: string
+          description: Marketing campaign attribution string.
+        referrer:
+          type: string
+          description: Referrer attribution string.
+        promotion_code:
+          type: string
+          description: Promotion code applied to the subscription.
+        coupon_code:
+          type: string
+          description: Coupon code applied to the subscription.
+        marketing_opt_in:
+          type: boolean
+          description: Whether the user has opted in to marketing notifications.
+        products:
+          type: array
+          description: |
+            Array of product metadata associated with the user, including
+            product id, name, description, and pricing where applicable.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+              price:
+                type: number
+        subscription_event:
+          type: object
+          description: |
+            Change details for subscription events, including renewal
+            price and frequency information.
+          properties:
+            renewal_price:
+              type: number
+            renewal_frequency:
+              type: string
+        registered_to_site:
+          type: boolean
+          description: Whether the user is registered to the OTT site.
+        subscribed_to_site:
+          type: boolean
+          description: Whether the user has an active subscription to the OTT site.
