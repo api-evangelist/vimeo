@@ -1,0 +1,9 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vimeo Webhooks API",
+    "version": "1.0.0"
+  },
+  "items": [],
+  "bundled": true
+}
