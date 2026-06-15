@@ -1,0 +1,1519 @@
+"""
+Vimeo GraphQL Schema
+Conceptual schema derived from the Vimeo REST API.
+Reference: https://developer.vimeo.com/api/reference
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar URL
+scalar JSON
+
+# ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum VideoPrivacyView {
+  ANYBODY
+  NOBODY
+  PASSWORD
+  DISABLE
+  UNLISTED
+  USERS
+  CONTACTS
+  FOLLOWERS
+}
+
+enum VideoPrivacyEmbed {
+  PUBLIC
+  PRIVATE
+  WHITELIST
+}
+
+enum VideoStatus {
+  AVAILABLE
+  QUOTA_EXCEEDED
+  TOTAL_CAP_EXCEEDED
+  TRANSCODE_STARTING
+  TRANSCODING
+  TRANSCODING_ERROR
+  UNAVAILABLE
+  UPLOADING
+  UPLOADING_ERROR
+}
+
+enum VideoLicenseType {
+  BY
+  BY_NC
+  BY_NC_ND
+  BY_NC_SA
+  BY_ND
+  BY_SA
+  CC0
+}
+
+enum VideoContentRating {
+  LANGUAGE
+  DRUGS
+  VIOLENCE
+  NUDITY
+  SAFE
+  UNRATED
+}
+
+enum VideoReviewStatus {
+  APPROVED
+  PENDING
+  REJECTED
+}
+
+enum ChannelPrivacy {
+  ANYBODY
+  MODERATORS
+  USERS
+}
+
+enum GroupPrivacy {
+  ANYBODY
+  MEMBERS
+}
+
+enum CommentType {
+  VIDEO
+  ALBUM
+}
+
+enum LiveEventStatus {
+  ENDED
+  STARTED
+  STREAMING
+  CREATED
+}
+
+enum UploadApproach {
+  POST
+  PULL
+  TTML
+  URL
+}
+
+enum TranscodeStatus {
+  COMPLETE
+  ERROR
+  IN_PROGRESS
+}
+
+enum OTTProductType {
+  TVOD
+  SVOD
+}
+
+enum CaptionType {
+  SUBTITLES
+  CAPTIONS
+}
+
+enum AnalyticsDimension {
+  VIDEO
+  COUNTRY
+  DEVICE_TYPE
+  EMBED_DOMAIN
+  STREAM_TYPE
+  VIDEO_LICENSE
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum EmbedPresetPosition {
+  ABOVE_THE_PLAYER
+  BELOW_THE_PLAYER
+}
+
+# ─── Core Types ─────────────────────────────────────────────────────────────
+
+"""A Vimeo user account."""
+type User {
+  uri: String!
+  name: String!
+  link: URL!
+  capabilities: UserCapabilities!
+  bio: String
+  shortBio: String
+  location: String
+  gender: String
+  createdTime: DateTime!
+  account: String!
+  pictures: PictureSet
+  websites: [UserWebsite!]!
+  metadata: UserMetadata!
+  uploadQuota: UploadQuota!
+  preferences: UserPreferences
+  contentFilter: [VideoContentRating!]
+  resourceKey: String!
+}
+
+"""Quota information for a user's upload allowance."""
+type UploadQuota {
+  space: QuotaSpace!
+  periodic: QuotaPeriodic
+  lifetime: QuotaLifetime
+}
+
+type QuotaSpace {
+  free: Float!
+  max: Float
+  used: Float!
+  showing: String!
+}
+
+type QuotaPeriodic {
+  free: Int!
+  max: Int
+  used: Int!
+  resetDate: DateTime
+  unit: String!
+}
+
+type QuotaLifetime {
+  free: Int!
+  max: Int
+  used: Int!
+  unit: String!
+}
+
+"""Metadata connections for a user."""
+type UserMetadata {
+  connections: UserConnections!
+  interactions: UserInteractions!
+}
+
+type UserConnections {
+  albums: Connection!
+  appearances: Connection!
+  categories: Connection!
+  channels: Connection!
+  feed: Connection!
+  followers: Connection!
+  following: Connection!
+  groups: Connection!
+  likes: Connection!
+  membershipConnections: Connection!
+  moderated_channels: Connection!
+  portfolios: Connection!
+  projects: Connection!
+  recommendedChannels: Connection!
+  recommendedUsers: Connection!
+  shared: Connection!
+  videos: Connection!
+  watchedVideos: Connection!
+  watchlater: Connection!
+}
+
+type UserInteractions {
+  addPrivacyUser: Interaction
+  block: Interaction
+  follow: Interaction
+  report: Interaction
+}
+
+type UserCapabilities {
+  hasLiveStreaming: Boolean!
+  hasUnlimitedStorage: Boolean!
+  hasSeoControls: Boolean!
+  hasTeamFeatures: Boolean!
+  hasAdvancedAnalytics: Boolean!
+  hasPrivacyModes: Boolean!
+}
+
+type UserPreferences {
+  videos: UserPreferencesVideos
+}
+
+type UserPreferencesVideos {
+  privacy: UserPreferencesVideoPrivacy
+}
+
+type UserPreferencesVideoPrivacy {
+  view: VideoPrivacyView
+  comments: String
+  embed: VideoPrivacyEmbed
+  download: Boolean
+  add: Boolean
+}
+
+type UserWebsite {
+  uri: String
+  name: String
+  link: URL!
+  type: String
+  description: String
+}
+
+# ─── Video ───────────────────────────────────────────────────────────────────
+
+"""A Vimeo video."""
+type Video {
+  uri: String!
+  name: String!
+  description: String
+  link: URL!
+  player_embed_url: URL!
+  duration: Int!
+  width: Int
+  height: Int
+  language: String
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  releaseTime: DateTime
+  contentRating: [VideoContentRating!]!
+  license: VideoLicenseType
+  privacy: VideoPrivacy!
+  pictures: PictureSet!
+  tags: [Tag!]!
+  stats: VideoStats!
+  categories: [Category!]!
+  metadata: VideoMetadata!
+  user: User!
+  status: VideoStatus!
+  reviewPage: VideoReviewPage
+  files: [VideoFile!]
+  download: [VideoDownload!]
+  embed: EmbedSettings
+  transcode: Transcode
+  upload: Upload
+  resourceKey: String!
+  hasAudio: Boolean!
+  isPlayable: Boolean!
+  type: String!
+}
+
+type VideoPrivacy {
+  view: VideoPrivacyView!
+  embed: VideoPrivacyEmbed!
+  download: Boolean!
+  add: Boolean!
+  comments: String!
+}
+
+type VideoStats {
+  plays: Int
+}
+
+type VideoReviewPage {
+  active: Boolean!
+  link: URL
+  isShareable: Boolean!
+}
+
+type VideoMetadata {
+  connections: VideoConnections!
+  interactions: VideoInteractions!
+  isVr: Boolean!
+  isScreenRecord: Boolean!
+}
+
+type VideoConnections {
+  comments: Connection!
+  credits: Connection!
+  likes: Connection!
+  pictures: Connection!
+  texttracks: Connection!
+  related: Connection
+  albums: Connection!
+  available_albums: Connection!
+  chapters: Connection!
+}
+
+type VideoInteractions {
+  watchlater: Interaction!
+  like: Interaction!
+  report: Interaction!
+  canRequestTeamReview: Interaction
+}
+
+type VideoFile {
+  quality: String!
+  type: String!
+  width: Int
+  height: Int
+  link: URL!
+  createdTime: DateTime!
+  fps: Float
+  size: Float
+  md5: String
+  publicName: String
+  sizeShort: String
+}
+
+type VideoDownload {
+  quality: String!
+  type: String!
+  width: Int
+  height: Int
+  expires: DateTime
+  link: URL!
+  createdTime: DateTime!
+  fps: Float
+  size: Float
+  md5: String
+  publicName: String
+  sizeShort: String
+}
+
+type Transcode {
+  status: TranscodeStatus!
+}
+
+type Upload {
+  status: String!
+  link: URL
+  uploadLink: URL
+  completeUri: String
+  form: String
+  approach: UploadApproach
+  size: Float
+  redirectUrl: URL
+}
+
+# ─── Album / Showcase ────────────────────────────────────────────────────────
+
+"""An album (showcase) on Vimeo."""
+type Album {
+  uri: String!
+  name: String!
+  description: String
+  link: URL!
+  duration: Int!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  user: User!
+  pictures: PictureSet!
+  resourceKey: String!
+  privacy: AlbumPrivacy!
+  layout: String!
+  theme: String!
+  sort: String!
+  metadata: AlbumMetadata!
+  embed: AlbumEmbedSettings
+  allowContinuousPlay: Boolean!
+  allowDownloads: Boolean!
+  allowShare: Boolean!
+  autoplay: Boolean!
+  brandColor: String
+  customLogo: PictureSet
+  domain: String
+  domainCertificate: String
+  embedBrandColor: String
+  embedCustomLogo: Boolean
+  hideVimeoLogo: Boolean
+  hideFromVimeo: Boolean!
+  password: String
+  reviewMode: Boolean!
+  seoDescription: String
+  seoKeywords: [String!]
+  seoTitle: String
+  useCustomDomain: Boolean!
+}
+
+type AlbumPrivacy {
+  view: String!
+  password: String
+  embed: String!
+}
+
+type AlbumMetadata {
+  connections: AlbumConnections!
+  interactions: AlbumInteractions!
+}
+
+type AlbumConnections {
+  availableVideos: Connection!
+  videos: Connection!
+}
+
+type AlbumInteractions {
+  addVideos: Interaction!
+  deleteVideo: Interaction!
+}
+
+type AlbumEmbedSettings {
+  outerColor: String
+  playButton: PlayButton
+}
+
+# ─── Channel ─────────────────────────────────────────────────────────────────
+
+"""A Vimeo channel."""
+type Channel {
+  uri: String!
+  name: String!
+  description: String
+  shortDescription: String
+  link: URL!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  user: User!
+  pictures: PictureSet!
+  header: PictureSet
+  privacy: ChannelPrivacy!
+  metadata: ChannelMetadata!
+  resourceKey: String!
+  tags: [Tag!]!
+  categories: [Category!]!
+}
+
+type ChannelMetadata {
+  connections: ChannelConnections!
+  interactions: ChannelInteractions!
+}
+
+type ChannelConnections {
+  users: Connection!
+  videos: Connection!
+  privacy: Connection!
+  moderators: Connection!
+}
+
+type ChannelInteractions {
+  addModerators: Interaction!
+  addVideos: Interaction!
+  follow: Interaction!
+  moderateVideos: Interaction!
+}
+
+# ─── Group ───────────────────────────────────────────────────────────────────
+
+"""A Vimeo group."""
+type Group {
+  uri: String!
+  name: String!
+  description: String
+  link: URL!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  user: User!
+  pictures: PictureSet!
+  header: PictureSet
+  privacy: GroupPrivacy!
+  metadata: GroupMetadata!
+  resourceKey: String!
+}
+
+type GroupMetadata {
+  connections: GroupConnections!
+  interactions: GroupInteractions!
+}
+
+type GroupConnections {
+  users: Connection!
+  videos: Connection!
+}
+
+type GroupInteractions {
+  join: Interaction!
+  addVideos: Interaction!
+}
+
+# ─── Category ────────────────────────────────────────────────────────────────
+
+"""A Vimeo content category."""
+type Category {
+  uri: String!
+  name: String!
+  link: URL!
+  topLevel: Boolean!
+  pictures: PictureSet!
+  subcategories: [Subcategory!]
+  metadata: CategoryMetadata!
+  parent: ParentCategory
+  resourceKey: String!
+  icon: PictureSet
+}
+
+type Subcategory {
+  uri: String!
+  name: String!
+  link: URL!
+}
+
+type ParentCategory {
+  uri: String!
+  name: String!
+  link: URL!
+}
+
+type CategoryMetadata {
+  connections: CategoryConnections!
+}
+
+type CategoryConnections {
+  channels: Connection!
+  groups: Connection!
+  users: Connection!
+  videos: Connection!
+}
+
+# ─── Tag ─────────────────────────────────────────────────────────────────────
+
+"""A Vimeo content tag."""
+type Tag {
+  uri: String!
+  name: String!
+  tag: String!
+  canonical: String!
+  metadata: TagMetadata!
+  resourceKey: String!
+}
+
+type TagMetadata {
+  connections: TagConnections!
+}
+
+type TagConnections {
+  videos: Connection!
+}
+
+# ─── Comment ─────────────────────────────────────────────────────────────────
+
+"""A comment on a Vimeo video or album."""
+type Comment {
+  uri: String!
+  type: String!
+  link: URL!
+  createdOn: DateTime!
+  text: String!
+  user: User!
+  metadata: CommentMetadata!
+  resourceKey: String!
+}
+
+type CommentMetadata {
+  connections: CommentConnections!
+}
+
+type CommentConnections {
+  replies: Connection!
+}
+
+# ─── Caption / TextTrack ─────────────────────────────────────────────────────
+
+"""A caption or subtitle track for a video."""
+type TextTrack {
+  uri: String!
+  active: Boolean!
+  type: CaptionType!
+  language: String!
+  name: String!
+  link: URL!
+  hlsLink: URL
+  createdTime: DateTime!
+  modified_time: DateTime!
+}
+
+# ─── Chapter ─────────────────────────────────────────────────────────────────
+
+"""A chapter marker within a video."""
+type Chapter {
+  uri: String!
+  activeTimecode: Float!
+  title: String!
+  timecode: Float!
+}
+
+# ─── Credit ──────────────────────────────────────────────────────────────────
+
+"""A credited person on a Vimeo video."""
+type Credit {
+  uri: String!
+  name: String!
+  role: String!
+  link: URL!
+  user: User
+  video: Video
+}
+
+# ─── Thumbnail / Picture ─────────────────────────────────────────────────────
+
+"""A set of pictures/thumbnails at various sizes."""
+type PictureSet {
+  uri: String
+  active: Boolean!
+  type: String
+  baseLink: URL
+  sizes: [PictureSize!]!
+  resourceKey: String
+  defaultPicture: Boolean
+}
+
+"""A single thumbnail size."""
+type PictureSize {
+  width: Int!
+  height: Int!
+  link: URL!
+  linkWithPlayButton: URL
+}
+
+# ─── Embed Settings ──────────────────────────────────────────────────────────
+
+"""Embed configuration for a video or showcase."""
+type EmbedSettings {
+  html: String!
+  badges: EmbedBadges
+  buttons: EmbedButtons
+  color: String
+  logos: EmbedLogos
+  playButton: PlayButton
+  title: EmbedTitle
+  uri: String
+  endScreen: [EmbedEndScreen!]
+  speed: Boolean!
+  pip: Boolean!
+  autopip: Boolean!
+  responsive: Boolean!
+}
+
+type EmbedBadges {
+  hdr: Boolean!
+  live: EmbedBadgeLive!
+  staffPick: EmbedBadgeStaffPick!
+  vod: Boolean!
+  weekendChallenge: Boolean!
+}
+
+type EmbedBadgeLive {
+  archive: Boolean!
+  streaming: Boolean!
+}
+
+type EmbedBadgeStaffPick {
+  bestOfMonth: Boolean!
+  bestOfYear: Boolean!
+  normal: Boolean!
+  premiere: Boolean!
+}
+
+type EmbedButtons {
+  embed: Boolean!
+  fullscreen: Boolean!
+  hd: Boolean!
+  like: Boolean!
+  scaling: Boolean!
+  share: Boolean!
+  watchlater: Boolean!
+}
+
+type EmbedLogos {
+  custom: EmbedCustomLogo!
+  vimeo: Boolean!
+}
+
+type EmbedCustomLogo {
+  active: Boolean!
+  link: URL
+  sticky: Boolean!
+  url: URL
+}
+
+type PlayButton {
+  position: String!
+}
+
+type EmbedTitle {
+  name: String!
+  owner: String!
+  portrait: String!
+}
+
+type EmbedEndScreen {
+  type: String!
+}
+
+# ─── Embed Preset ────────────────────────────────────────────────────────────
+
+"""A saved embed configuration preset."""
+type EmbedPreset {
+  uri: String!
+  name: String!
+  description: String
+  isDefault: Boolean!
+  settings: EmbedSettings!
+  user: User!
+  metadata: EmbedPresetMetadata!
+}
+
+type EmbedPresetMetadata {
+  connections: EmbedPresetConnections!
+}
+
+type EmbedPresetConnections {
+  videos: Connection!
+}
+
+# ─── Live Event ──────────────────────────────────────────────────────────────
+
+"""A Vimeo live streaming event."""
+type LiveEvent {
+  uri: String!
+  title: String!
+  description: String
+  link: URL!
+  streamKey: String
+  rtmpLink: URL
+  rtmpsLink: URL
+  status: LiveEventStatus!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  scheduledStartTime: DateTime
+  user: User!
+  pictures: PictureSet!
+  privacy: LiveEventPrivacy!
+  metadata: LiveEventMetadata!
+  embed: EmbedSettings
+  lowLatency: Boolean!
+  autoCC: Boolean!
+  autoCCLanguage: String
+  playlistSort: String!
+  streamPassword: String
+  contentRating: [VideoContentRating!]!
+  allowShareLink: Boolean!
+  chat: LiveEventChat
+}
+
+type LiveEventPrivacy {
+  view: VideoPrivacyView!
+  embed: VideoPrivacyEmbed!
+}
+
+type LiveEventMetadata {
+  connections: LiveEventConnections!
+}
+
+type LiveEventConnections {
+  videos: Connection!
+  mStreamingDestinations: Connection!
+}
+
+type LiveEventChat {
+  link: URL
+}
+
+# ─── Domain Whitelist ─────────────────────────────────────────────────────────
+
+"""An allowed embed domain for a video."""
+type Domain {
+  allowHd: Boolean!
+  domain: String!
+  uri: String!
+}
+
+# ─── Analytics ───────────────────────────────────────────────────────────────
+
+"""An analytics data point."""
+type AnalyticsDataPoint {
+  dimension: String!
+  value: String!
+  metrics: AnalyticsMetrics!
+}
+
+type AnalyticsMetrics {
+  plays: Int
+  finishes: Int
+  impressions: Int
+  uniqueImpressions: Int
+  uniqueViewers: Int
+  downloads: Int
+  likes: Int
+  comments: Int
+}
+
+"""A summary of analytics for a video."""
+type VideoAnalyticsSummary {
+  videoUri: String!
+  totalPlays: Int!
+  totalFinishes: Int!
+  totalImpressions: Int!
+  totalDownloads: Int!
+  totalLikes: Int!
+  totalComments: Int!
+  topCountries: [AnalyticsDataPoint!]!
+  topDevices: [AnalyticsDataPoint!]!
+}
+
+# ─── Folder / Project ────────────────────────────────────────────────────────
+
+"""A project (folder) for organizing videos."""
+type Project {
+  uri: String!
+  name: String!
+  link: URL!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  lastUserActionEventDate: DateTime
+  user: User!
+  metadata: ProjectMetadata!
+  resourceKey: String!
+  pinned: Boolean!
+  isPrivateToUser: Boolean!
+  access_grant: AccessGrant
+}
+
+type ProjectMetadata {
+  connections: ProjectConnections!
+}
+
+type ProjectConnections {
+  videos: Connection!
+  folders: Connection!
+  ancestorPath: Connection!
+}
+
+type AccessGrant {
+  permissionPolicies: [PermissionPolicy!]!
+}
+
+type PermissionPolicy {
+  uri: String!
+  name: String!
+  description: String!
+  permissionActions: [PermissionAction!]!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+}
+
+type PermissionAction {
+  uri: String!
+  name: String!
+  displayName: String!
+  description: String!
+}
+
+# ─── OTT ─────────────────────────────────────────────────────────────────────
+
+"""An OTT (Over-The-Top) site configuration."""
+type OTTSite {
+  uri: String!
+  name: String!
+  description: String
+  url: URL!
+  active: Boolean!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  plans: [OTTPlan!]!
+  themeColor: String
+  customDomain: String
+}
+
+"""An OTT subscription plan."""
+type OTTPlan {
+  uri: String!
+  name: String!
+  description: String
+  type: OTTProductType!
+  price: OTTPlanPrice!
+  currency: String!
+  active: Boolean!
+  videoCount: Int!
+}
+
+type OTTPlanPrice {
+  amount: Float!
+  displayAmount: String!
+  currency: String!
+}
+
+"""An OTT customer."""
+type OTTCustomer {
+  id: String!
+  email: String!
+  name: String!
+  createdTime: DateTime!
+  plan: OTTPlan
+  status: String!
+}
+
+"""An OTT subscription."""
+type OTTSubscription {
+  id: String!
+  customer: OTTCustomer!
+  plan: OTTPlan!
+  status: String!
+  currentPeriodStart: DateTime!
+  currentPeriodEnd: DateTime!
+  cancelledAt: DateTime
+  createdTime: DateTime!
+}
+
+# ─── Portfolio ───────────────────────────────────────────────────────────────
+
+"""A user portfolio."""
+type Portfolio {
+  uri: String!
+  name: String!
+  description: String
+  link: URL!
+  createdTime: DateTime!
+  modifiedTime: DateTime!
+  sort: String!
+  metadata: PortfolioMetadata!
+}
+
+type PortfolioMetadata {
+  connections: PortfolioConnections!
+}
+
+type PortfolioConnections {
+  videos: Connection!
+}
+
+# ─── API App ──────────────────────────────────────────────────────────────────
+
+"""A Vimeo API application."""
+type ApiApp {
+  uri: String!
+  name: String!
+  description: String
+  link: URL
+}
+
+"""A webhook registered for an API application."""
+type ApiAppWebhook {
+  id: String!
+  appId: String!
+  event: String!
+  targetUrl: URL!
+  active: Boolean!
+  createdTime: DateTime!
+}
+
+# ─── Interaction / Connection Primitives ─────────────────────────────────────
+
+"""A paginated collection edge."""
+type Connection {
+  uri: String!
+  options: [String!]!
+  total: Int!
+}
+
+"""An available interaction the authenticated user can perform."""
+type Interaction {
+  uri: String!
+  options: [String!]!
+  added: Boolean
+  addedTime: DateTime
+}
+
+# ─── Pagination ───────────────────────────────────────────────────────────────
+
+"""Pagination metadata."""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  page: Int!
+  perPage: Int!
+  total: Int!
+}
+
+"""A paginated list of videos."""
+type VideoPage {
+  data: [Video!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of users."""
+type UserPage {
+  data: [User!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of albums."""
+type AlbumPage {
+  data: [Album!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of channels."""
+type ChannelPage {
+  data: [Channel!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of groups."""
+type GroupPage {
+  data: [Group!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of categories."""
+type CategoryPage {
+  data: [Category!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of comments."""
+type CommentPage {
+  data: [Comment!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of projects."""
+type ProjectPage {
+  data: [Project!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of live events."""
+type LiveEventPage {
+  data: [LiveEvent!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of text tracks."""
+type TextTrackPage {
+  data: [TextTrack!]!
+  pageInfo: PageInfo!
+}
+
+"""A paginated list of tags."""
+type TagPage {
+  data: [Tag!]!
+  pageInfo: PageInfo!
+}
+
+# ─── Input Types ─────────────────────────────────────────────────────────────
+
+input VideoPrivacyInput {
+  view: VideoPrivacyView
+  embed: VideoPrivacyEmbed
+  download: Boolean
+  add: Boolean
+  comments: String
+}
+
+input CreateVideoInput {
+  name: String!
+  description: String
+  privacy: VideoPrivacyInput
+  license: VideoLicenseType
+  language: String
+  contentRating: [VideoContentRating!]
+  password: String
+  reviewLink: Boolean
+  upload: UploadInput!
+}
+
+input UploadInput {
+  approach: UploadApproach!
+  size: Float
+  link: URL
+  redirectUrl: URL
+}
+
+input UpdateVideoInput {
+  name: String
+  description: String
+  privacy: VideoPrivacyInput
+  license: VideoLicenseType
+  language: String
+  contentRating: [VideoContentRating!]
+  password: String
+  reviewLink: Boolean
+  embed: UpdateEmbedInput
+}
+
+input UpdateEmbedInput {
+  color: String
+  title: UpdateEmbedTitleInput
+  buttons: UpdateEmbedButtonsInput
+  logos: UpdateEmbedLogosInput
+  speed: Boolean
+  pip: Boolean
+  responsive: Boolean
+}
+
+input UpdateEmbedTitleInput {
+  name: String
+  owner: String
+  portrait: String
+}
+
+input UpdateEmbedButtonsInput {
+  embed: Boolean
+  fullscreen: Boolean
+  hd: Boolean
+  like: Boolean
+  scaling: Boolean
+  share: Boolean
+  watchlater: Boolean
+}
+
+input UpdateEmbedLogosInput {
+  vimeo: Boolean
+  customActive: Boolean
+  customSticky: Boolean
+  customLink: URL
+}
+
+input CreateAlbumInput {
+  name: String!
+  description: String
+  password: String
+  privacy: String
+  sort: String
+  layout: String
+  theme: String
+  brandColor: String
+  domain: String
+  hideVimeoLogo: Boolean
+  reviewMode: Boolean
+  seoTitle: String
+  seoDescription: String
+  seoKeywords: [String!]
+  useCustomDomain: Boolean
+  allowContinuousPlay: Boolean
+  allowDownloads: Boolean
+  allowShare: Boolean
+  autoplay: Boolean
+}
+
+input CreateChannelInput {
+  name: String!
+  description: String
+  privacy: ChannelPrivacy!
+}
+
+input CreateGroupInput {
+  name: String!
+  description: String
+}
+
+input CreateLiveEventInput {
+  title: String!
+  description: String
+  scheduledStartTime: DateTime
+  lowLatency: Boolean
+  autoCC: Boolean
+  autoCCLanguage: String
+  privacy: VideoPrivacyView
+  contentRating: [VideoContentRating!]
+}
+
+input CreateCommentInput {
+  text: String!
+}
+
+input CreateTextTrackInput {
+  type: CaptionType!
+  language: String!
+  name: String!
+  active: Boolean
+}
+
+input CreateProjectInput {
+  name: String!
+}
+
+input PaginationInput {
+  page: Int
+  perPage: Int
+  sort: String
+  direction: SortDirection
+  query: String
+  filter: String
+}
+
+# ─── Query ───────────────────────────────────────────────────────────────────
+
+type Query {
+  """Get the authenticated user."""
+  me: User!
+
+  """Get a user by URI or ID."""
+  user(userId: String!): User!
+
+  """Search users."""
+  users(filter: String, query: String, page: Int, perPage: Int): UserPage!
+
+  """Get a video by URI or ID."""
+  video(videoId: String!): Video!
+
+  """Get all videos for the authenticated user."""
+  myVideos(pagination: PaginationInput): VideoPage!
+
+  """Get videos for a specific user."""
+  userVideos(userId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get videos that appear in a user's feed."""
+  userFeed(userId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get videos a user has liked."""
+  userLikes(userId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get videos a user has watched."""
+  userWatchHistory(userId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get the user's watch later list."""
+  watchLater(userId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get an album by ID."""
+  album(userId: String!, albumId: String!): Album!
+
+  """Get all albums for a user."""
+  userAlbums(userId: String!, pagination: PaginationInput): AlbumPage!
+
+  """Get videos in an album."""
+  albumVideos(userId: String!, albumId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get a channel by ID."""
+  channel(channelId: String!): Channel!
+
+  """Get all channels."""
+  channels(pagination: PaginationInput): ChannelPage!
+
+  """Get videos in a channel."""
+  channelVideos(channelId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get a group by ID."""
+  group(groupId: String!): Group!
+
+  """Get all groups."""
+  groups(pagination: PaginationInput): GroupPage!
+
+  """Get videos in a group."""
+  groupVideos(groupId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get a category by name."""
+  category(category: String!): Category!
+
+  """Get all categories."""
+  categories(pagination: PaginationInput): CategoryPage!
+
+  """Get videos in a category."""
+  categoryVideos(category: String!, pagination: PaginationInput): VideoPage!
+
+  """Get channels in a category."""
+  categoryChannels(category: String!, pagination: PaginationInput): ChannelPage!
+
+  """Get comments for a video."""
+  videoComments(videoId: String!, pagination: PaginationInput): CommentPage!
+
+  """Get text tracks for a video."""
+  videoTextTracks(videoId: String!): TextTrackPage!
+
+  """Get chapters for a video."""
+  videoChapters(videoId: String!): [Chapter!]!
+
+  """Get thumbnails for a video."""
+  videoThumbnails(videoId: String!): [PictureSet!]!
+
+  """Get allowed embed domains for a video."""
+  videoAllowedDomains(videoId: String!): [Domain!]!
+
+  """Get a project by ID."""
+  project(userId: String!, projectId: String!): Project!
+
+  """Get all projects for a user."""
+  userProjects(userId: String!, pagination: PaginationInput): ProjectPage!
+
+  """Get videos in a project."""
+  projectVideos(userId: String!, projectId: String!, pagination: PaginationInput): VideoPage!
+
+  """Get a live event."""
+  liveEvent(userId: String!, liveEventId: String!): LiveEvent!
+
+  """Get all live events for a user."""
+  userLiveEvents(userId: String!, pagination: PaginationInput): LiveEventPage!
+
+  """Get an embed preset."""
+  embedPreset(userId: String!, presetId: String!): EmbedPreset!
+
+  """Get all embed presets for a user."""
+  userEmbedPresets(userId: String!, pagination: PaginationInput): [EmbedPreset!]!
+
+  """Get a tag by word."""
+  tag(word: String!): Tag!
+
+  """Get videos with a specific tag."""
+  tagVideos(word: String!, pagination: PaginationInput): VideoPage!
+
+  """Get analytics for a video."""
+  videoAnalytics(videoId: String!, dimension: AnalyticsDimension, from: DateTime, to: DateTime): VideoAnalyticsSummary!
+
+  """Get a portfolio."""
+  portfolio(userId: String!, portfolioId: String!): Portfolio!
+
+  """Get all portfolios for a user."""
+  userPortfolios(userId: String!, pagination: PaginationInput): [Portfolio!]!
+
+  """Get API application info."""
+  apiApp(appId: String!): ApiApp!
+
+  """Get webhooks for an API application."""
+  apiAppWebhooks(appId: String!): [ApiAppWebhook!]!
+
+  """Search across Vimeo content."""
+  search(query: String!, type: String, pagination: PaginationInput): VideoPage!
+}
+
+# ─── Mutation ────────────────────────────────────────────────────────────────
+
+type Mutation {
+  """Create a new video upload."""
+  createVideo(userId: String!, input: CreateVideoInput!): Video!
+
+  """Update video metadata."""
+  updateVideo(videoId: String!, input: UpdateVideoInput!): Video!
+
+  """Delete a video."""
+  deleteVideo(videoId: String!): Boolean!
+
+  """Add a video to the watch later list."""
+  addToWatchLater(userId: String!, videoId: String!): Boolean!
+
+  """Remove a video from the watch later list."""
+  removeFromWatchLater(userId: String!, videoId: String!): Boolean!
+
+  """Like a video."""
+  likeVideo(userId: String!, videoId: String!): Boolean!
+
+  """Unlike a video."""
+  unlikeVideo(userId: String!, videoId: String!): Boolean!
+
+  """Add a tag to a video."""
+  addVideoTag(videoId: String!, word: String!): Tag!
+
+  """Remove a tag from a video."""
+  removeVideoTag(videoId: String!, word: String!): Boolean!
+
+  """Add a video thumbnail."""
+  addVideoThumbnail(videoId: String!, active: Boolean): PictureSet!
+
+  """Delete a video thumbnail."""
+  deleteVideoThumbnail(videoId: String!, pictureId: String!): Boolean!
+
+  """Add a domain to video whitelist."""
+  addAllowedDomain(videoId: String!, domain: String!): Domain!
+
+  """Remove a domain from video whitelist."""
+  removeAllowedDomain(videoId: String!, domain: String!): Boolean!
+
+  """Add a comment to a video."""
+  addComment(videoId: String!, input: CreateCommentInput!): Comment!
+
+  """Edit a comment."""
+  updateComment(videoId: String!, commentId: String!, text: String!): Comment!
+
+  """Delete a comment."""
+  deleteComment(videoId: String!, commentId: String!): Boolean!
+
+  """Add a text track to a video."""
+  addTextTrack(videoId: String!, input: CreateTextTrackInput!): TextTrack!
+
+  """Delete a text track."""
+  deleteTextTrack(videoId: String!, texttrackId: String!): Boolean!
+
+  """Add a chapter to a video."""
+  addChapter(videoId: String!, title: String!, timecode: Float!): Chapter!
+
+  """Delete a chapter from a video."""
+  deleteChapter(videoId: String!, chapterId: String!): Boolean!
+
+  """Create an album."""
+  createAlbum(userId: String!, input: CreateAlbumInput!): Album!
+
+  """Update an album."""
+  updateAlbum(userId: String!, albumId: String!, input: CreateAlbumInput!): Album!
+
+  """Delete an album."""
+  deleteAlbum(userId: String!, albumId: String!): Boolean!
+
+  """Add a video to an album."""
+  addVideoToAlbum(userId: String!, albumId: String!, videoId: String!): Boolean!
+
+  """Remove a video from an album."""
+  removeVideoFromAlbum(userId: String!, albumId: String!, videoId: String!): Boolean!
+
+  """Create a channel."""
+  createChannel(input: CreateChannelInput!): Channel!
+
+  """Update a channel."""
+  updateChannel(channelId: String!, input: CreateChannelInput!): Channel!
+
+  """Delete a channel."""
+  deleteChannel(channelId: String!): Boolean!
+
+  """Follow a channel."""
+  followChannel(userId: String!, channelId: String!): Boolean!
+
+  """Unfollow a channel."""
+  unfollowChannel(userId: String!, channelId: String!): Boolean!
+
+  """Add a video to a channel."""
+  addVideoToChannel(channelId: String!, videoId: String!): Boolean!
+
+  """Remove a video from a channel."""
+  removeVideoFromChannel(channelId: String!, videoId: String!): Boolean!
+
+  """Create a group."""
+  createGroup(input: CreateGroupInput!): Group!
+
+  """Delete a group."""
+  deleteGroup(groupId: String!): Boolean!
+
+  """Join a group."""
+  joinGroup(userId: String!, groupId: String!): Boolean!
+
+  """Leave a group."""
+  leaveGroup(userId: String!, groupId: String!): Boolean!
+
+  """Add a video to a group."""
+  addVideoToGroup(groupId: String!, videoId: String!): Boolean!
+
+  """Remove a video from a group."""
+  removeVideoFromGroup(groupId: String!, videoId: String!): Boolean!
+
+  """Create a project."""
+  createProject(userId: String!, input: CreateProjectInput!): Project!
+
+  """Update a project."""
+  updateProject(userId: String!, projectId: String!, name: String!): Project!
+
+  """Delete a project."""
+  deleteProject(userId: String!, projectId: String!, shouldDeleteClips: Boolean): Boolean!
+
+  """Add a video to a project."""
+  addVideoToProject(userId: String!, projectId: String!, videoId: String!): Boolean!
+
+  """Remove a video from a project."""
+  removeVideoFromProject(userId: String!, projectId: String!, videoId: String!): Boolean!
+
+  """Follow a user."""
+  followUser(userId: String!, followUserId: String!): Boolean!
+
+  """Unfollow a user."""
+  unfollowUser(userId: String!, followUserId: String!): Boolean!
+
+  """Block a user."""
+  blockUser(userId: String!, blockUserId: String!): Boolean!
+
+  """Unblock a user."""
+  unblockUser(userId: String!, blockUserId: String!): Boolean!
+
+  """Create a live event."""
+  createLiveEvent(userId: String!, input: CreateLiveEventInput!): LiveEvent!
+
+  """Update a live event."""
+  updateLiveEvent(userId: String!, liveEventId: String!, input: CreateLiveEventInput!): LiveEvent!
+
+  """Delete a live event."""
+  deleteLiveEvent(userId: String!, liveEventId: String!): Boolean!
+
+  """Register a webhook for an API application."""
+  createApiAppWebhook(appId: String!, event: String!, targetUrl: URL!): ApiAppWebhook!
+
+  """Delete a webhook."""
+  deleteApiAppWebhook(appId: String!, webhookId: String!): Boolean!
+}
