@@ -6,7 +6,7 @@ description: Vimeo is a video hosting, creation, and streaming platform for crea
   upload, management, embedding, and analytics of videos, albums, channels, groups,
   and users using Bearer token (OAuth 2.0) authentication.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Video
 - Streaming
