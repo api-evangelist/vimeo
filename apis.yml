@@ -83,9 +83,9 @@ common:
   url: https://vimeo.com
 - type: Documentation
   url: https://developer.vimeo.com/
-- type: Developer Portal
+- type: DeveloperPortal
   url: https://developer.vimeo.com/
-- type: SignUp
+- type: Signup
   url: https://vimeo.com/join
 - type: Pricing
   url: https://vimeo.com/upgrade
