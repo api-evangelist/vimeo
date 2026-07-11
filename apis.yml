@@ -77,6 +77,10 @@ apis:
   - type: AsyncAPI
     url: https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/openapi/vimeo-asyncapi.yml
 common:
+- type: Authentication
+  url: authentication/vimeo-authentication.yml
+- type: OAuthScopes
+  url: scopes/vimeo-scopes.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/vimeo
 - type: Website
@@ -91,6 +95,8 @@ common:
   url: https://vimeo.com/upgrade
 - type: GitHubOrganization
   url: https://github.com/vimeo
+- url: https://vimeo.com/blog/feed
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

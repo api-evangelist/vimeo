@@ -1,0 +1,50 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/vimeo-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/vimeo-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.vimeo.com/oauth/authorize
+    tokenUrl: https://api.vimeo.com/oauth/access_token
+  - flow: clientCredentials
+    tokenUrl: https://api.vimeo.com/oauth/authorize/client
+scopes:
+- scope: create
+  description: Create albums, channels, etc.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/vimeo-openapi.yml
+- scope: delete
+  description: Delete videos, albums, channels
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/vimeo-openapi.yml
+- scope: edit
+  description: Edit videos, albums, channels
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/vimeo-openapi.yml
+- scope: private
+  description: Access private data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/vimeo-openapi.yml
+- scope: public
+  description: Access public data
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/vimeo-openapi.yml
+- scope: upload
+  description: Upload videos
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/vimeo-openapi.yml
