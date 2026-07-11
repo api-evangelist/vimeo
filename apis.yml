@@ -77,6 +77,10 @@ apis:
   - type: AsyncAPI
     url: https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/openapi/vimeo-asyncapi.yml
 common:
+- type: VulnerabilityDisclosure
+  url: security/vimeo-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/vimeo-domain-security.yml
 - type: Authentication
   url: authentication/vimeo-authentication.yml
 - type: OAuthScopes

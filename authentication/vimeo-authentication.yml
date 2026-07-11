@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/vimeo-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth 2.0 Bearer token
+  sources:
+  - openapi/vimeo-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.vimeo.com/oauth/authorize
+    tokenUrl: https://api.vimeo.com/oauth/access_token
+    scopes: 6
+  - flow: clientCredentials
+    tokenUrl: https://api.vimeo.com/oauth/authorize/client
+    scopes: 1
+  sources:
+  - openapi/vimeo-openapi.yml
