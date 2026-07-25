@@ -1,0 +1,118 @@
+openapi: 3.1.0
+info:
+  title: Vimeo Albums Videos API
+  version: '3.4'
+  description: 'The Vimeo REST API enables programmatic upload, management, embedding,
+
+    and analytics of videos, albums, channels, groups, and users.
+
+    Authentication uses OAuth 2.0 Bearer tokens. All requests are made
+
+    against https://api.vimeo.com.
+
+    '
+  contact:
+    name: Vimeo Developer Docs
+    url: https://developer.vimeo.com/api/reference
+servers:
+- url: https://api.vimeo.com
+  description: Vimeo API base URL
+security:
+- bearerAuth: []
+tags:
+- name: Videos
+paths:
+  /me/videos:
+    get:
+      tags:
+      - Videos
+      summary: List the authenticated user's videos
+      operationId: listMyVideos
+      responses:
+        '200':
+          description: Videos list
+    post:
+      tags:
+      - Videos
+      summary: Upload a video for the authenticated user
+      operationId: uploadVideo
+      responses:
+        '201':
+          description: Upload initiated
+  /users/{user_id}/videos:
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Videos
+      summary: List a user's videos
+      operationId: listUserVideos
+      responses:
+        '200':
+          description: Videos list
+    post:
+      tags:
+      - Videos
+      summary: Upload a video for a user
+      operationId: uploadUserVideo
+      responses:
+        '201':
+          description: Upload initiated
+  /videos/{video_id}:
+    parameters:
+    - name: video_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Videos
+      summary: Get a video
+      operationId: getVideo
+      responses:
+        '200':
+          description: Video
+    patch:
+      tags:
+      - Videos
+      summary: Edit a video
+      operationId: editVideo
+      responses:
+        '200':
+          description: Video updated
+    delete:
+      tags:
+      - Videos
+      summary: Delete a video
+      operationId: deleteVideo
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.vimeo.com/oauth/authorize
+          tokenUrl: https://api.vimeo.com/oauth/access_token
+          scopes:
+            public: Access public data
+            private: Access private data
+            create: Create albums, channels, etc.
+            edit: Edit videos, albums, channels
+            delete: Delete videos, albums, channels
+            upload: Upload videos
+        clientCredentials:
+          tokenUrl: https://api.vimeo.com/oauth/authorize/client
+          scopes:
+            public: Access public data

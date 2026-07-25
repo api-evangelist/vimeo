@@ -1,0 +1,79 @@
+openapi: 3.1.0
+info:
+  title: Vimeo Albums Users API
+  version: '3.4'
+  description: 'The Vimeo REST API enables programmatic upload, management, embedding,
+
+    and analytics of videos, albums, channels, groups, and users.
+
+    Authentication uses OAuth 2.0 Bearer tokens. All requests are made
+
+    against https://api.vimeo.com.
+
+    '
+  contact:
+    name: Vimeo Developer Docs
+    url: https://developer.vimeo.com/api/reference
+servers:
+- url: https://api.vimeo.com
+  description: Vimeo API base URL
+security:
+- bearerAuth: []
+tags:
+- name: Users
+paths:
+  /me:
+    get:
+      tags:
+      - Users
+      summary: Get the authenticated user
+      operationId: getAuthenticatedUser
+      responses:
+        '200':
+          description: Authenticated user
+    patch:
+      tags:
+      - Users
+      summary: Edit the authenticated user
+      operationId: editAuthenticatedUser
+      responses:
+        '200':
+          description: User updated
+  /users/{user_id}:
+    parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Users
+      summary: Get a user
+      operationId: getUser
+      responses:
+        '200':
+          description: User
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.vimeo.com/oauth/authorize
+          tokenUrl: https://api.vimeo.com/oauth/access_token
+          scopes:
+            public: Access public data
+            private: Access private data
+            create: Create albums, channels, etc.
+            edit: Edit videos, albums, channels
+            delete: Delete videos, albums, channels
+            upload: Upload videos
+        clientCredentials:
+          tokenUrl: https://api.vimeo.com/oauth/authorize/client
+          scopes:
+            public: Access public data
