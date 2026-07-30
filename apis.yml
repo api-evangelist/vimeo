@@ -6,7 +6,19 @@ description: Vimeo is a video hosting, creation, and streaming platform for crea
   upload, management, embedding, and analytics of videos, albums, channels, groups,
   and users using Bearer token (OAuth 2.0) authentication.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/vimeo.png
 tags:
 - Video
 - Streaming
@@ -19,43 +31,17 @@ created: '2026-05-11'
 modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
-- aid: vimeo:rest-api
-  name: Vimeo API
-  description: REST API for uploading, managing, and streaming videos along with albums,
-    channels, groups, users, comments, captions, live events, and analytics. Authentication
-    uses OAuth 2.0 Bearer tokens.
-  humanURL: https://developer.vimeo.com/api/reference
-  baseURL: https://api.vimeo.com
-  tags:
-  - Video
-  - Upload
-  - Streaming
-  - Live Events
-  - Channels
-  - Analytics
-  properties:
-  - type: Documentation
-    url: https://developer.vimeo.com/api/reference
-  - type: GettingStarted
-    url: https://developer.vimeo.com/api/guides/start
-  - type: Authentication
-    url: https://developer.vimeo.com/api/authentication
-  - type: OpenAPI
-    url: https://github.com/vimeo/openapi/blob/master/api.yaml
-  - type: OpenAPI Source
-    url: https://github.com/vimeo/openapi
-  - url: graphql/vimeo-graphql.md
-    type: GraphQL
 - aid: vimeo:webhooks
   name: Vimeo Webhooks
-  description: 'AsyncAPI 2.6 specification for Vimeo''s documented webhook surface,
-    covering the Vimeo OTT customer and subscription lifecycle topics (customer.created,
-    customer.product.renewed, customer.tvod.created, and related events) delivered
-    via HTTPS POST to a subscriber URL. Vimeo''s standard API webhooks (App Webhooks)
-    are configured per API app from the developer dashboard. Note: Vimeo''s official
-    documentation states the standard API does not currently emit a webhook on transcode
-    completion; transcode status must be polled.'
-  humanURL: https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
+  description: >-
+    AsyncAPI 2.6 specification for Vimeo's documented webhook surface, covering the Vimeo OTT customer
+    and subscription lifecycle topics (customer.created, customer.product.renewed, customer.tvod.created,
+    and related events) delivered via HTTPS POST to a subscriber URL. Vimeo's standard API webhooks (App
+    Webhooks) are configured per API app from the developer dashboard. Note: Vimeo's official documentation
+    states the standard API does not currently emit a webhook on transcode completion; transcode status
+    must be polled.
+  humanURL: >-
+    https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
   baseURL: https://api.vimeo.com
   tags:
   - Webhooks
@@ -65,17 +51,101 @@ apis:
   - AsyncAPI
   properties:
   - type: Documentation
-    url: https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
+    url: >-
+      https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
   - type: Payload Reference
-    url: https://help.vimeo.com/hc/en-us/articles/12427295198609-Properties-of-a-webhook-payload-on-Vimeo-OTT
+    url: >-
+      https://help.vimeo.com/hc/en-us/articles/12427295198609-Properties-of-a-webhook-payload-on-Vimeo-OTT
   - type: Setup Guide
     url: https://help.vimeo.com/hc/en-us/articles/12427285998225-Create-a-Vimeo-OTT-webhook
   - type: App Webhook Reference
     url: https://developer.vimeo.com/api/reference/response/api-app-webhook
   - type: Transcode Status Note
-    url: https://help.vimeo.com/hc/en-us/articles/12427776744593-Get-video-transcode-status-from-the-API
+    url: >-
+      https://help.vimeo.com/hc/en-us/articles/12427776744593-Get-video-transcode-status-from-the-API
   - type: AsyncAPI
-    url: https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/openapi/vimeo-asyncapi.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/openapi/vimeo-asyncapi.yml
+- aid: vimeo:vimeo-albums-api
+  name: Vimeo Albums API
+  description: The Albums API from Vimeo — 2 operation(s) for albums.
+  humanURL: https://developer.vimeo.com/api/reference
+  baseURL: https://api.vimeo.com
+  tags:
+  - Albums
+  properties:
+  - type: OpenAPI
+    url: openapi/vimeo-albums-api-openapi.yml
+  - type: Documentation
+    url: https://developer.vimeo.com/api/reference
+  - type: GettingStarted
+    url: https://developer.vimeo.com/api/guides/start
+  - type: Authentication
+    url: https://developer.vimeo.com/api/authentication
+  - type: OpenAPI Source
+    url: https://github.com/vimeo/openapi
+  - type: GraphQL
+    url: graphql/vimeo-graphql.md
+- aid: vimeo:vimeo-channels-api
+  name: Vimeo Channels API
+  description: The Channels API from Vimeo — 3 operation(s) for channels.
+  humanURL: https://developer.vimeo.com/api/reference
+  baseURL: https://api.vimeo.com
+  tags:
+  - Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/vimeo-channels-api-openapi.yml
+  - type: Documentation
+    url: https://developer.vimeo.com/api/reference
+  - type: GettingStarted
+    url: https://developer.vimeo.com/api/guides/start
+  - type: Authentication
+    url: https://developer.vimeo.com/api/authentication
+  - type: OpenAPI Source
+    url: https://github.com/vimeo/openapi
+  - type: GraphQL
+    url: graphql/vimeo-graphql.md
+- aid: vimeo:vimeo-users-api
+  name: Vimeo Users API
+  description: The Users API from Vimeo — 2 operation(s) for users.
+  humanURL: https://developer.vimeo.com/api/reference
+  baseURL: https://api.vimeo.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/vimeo-users-api-openapi.yml
+  - type: Documentation
+    url: https://developer.vimeo.com/api/reference
+  - type: GettingStarted
+    url: https://developer.vimeo.com/api/guides/start
+  - type: Authentication
+    url: https://developer.vimeo.com/api/authentication
+  - type: OpenAPI Source
+    url: https://github.com/vimeo/openapi
+  - type: GraphQL
+    url: graphql/vimeo-graphql.md
+- aid: vimeo:vimeo-videos-api
+  name: Vimeo Videos API
+  description: The Videos API from Vimeo — 3 operation(s) for videos.
+  humanURL: https://developer.vimeo.com/api/reference
+  baseURL: https://api.vimeo.com
+  tags:
+  - Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/vimeo-videos-api-openapi.yml
+  - type: Documentation
+    url: https://developer.vimeo.com/api/reference
+  - type: GettingStarted
+    url: https://developer.vimeo.com/api/guides/start
+  - type: Authentication
+    url: https://developer.vimeo.com/api/authentication
+  - type: OpenAPI Source
+    url: https://github.com/vimeo/openapi
+  - type: GraphQL
+    url: graphql/vimeo-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/vimeo-agentic-access.yml
