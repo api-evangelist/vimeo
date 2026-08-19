@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vimeo Albums API",
+    "version": "3.4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Albums",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List a user's albums",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vimeo.com/users/:user_id/albums",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List a user's albums"
+        },
+        {
+          "info": {
+            "name": "Create an album for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vimeo.com/users/:user_id/albums",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create an album for a user"
+        },
+        {
+          "info": {
+            "name": "Get an album",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vimeo.com/users/:user_id/albums/:album_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "album_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an album"
+        },
+        {
+          "info": {
+            "name": "Delete an album",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.vimeo.com/users/:user_id/albums/:album_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "album_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an album"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vimeo Albums Videos API",
+    "version": "3.4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List the authenticated user's videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vimeo.com/me/videos"
+          },
+          "docs": "List the authenticated user's videos"
+        },
+        {
+          "info": {
+            "name": "Upload a video for the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vimeo.com/me/videos"
+          },
+          "docs": "Upload a video for the authenticated user"
+        },
+        {
+          "info": {
+            "name": "List a user's videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vimeo.com/users/:user_id/videos",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List a user's videos"
+        },
+        {
+          "info": {
+            "name": "Upload a video for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.vimeo.com/users/:user_id/videos",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Upload a video for a user"
+        },
+        {
+          "info": {
+            "name": "Get a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vimeo.com/videos/:video_id",
+            "params": [
+              {
+                "name": "video_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a video"
+        },
+        {
+          "info": {
+            "name": "Edit a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.vimeo.com/videos/:video_id",
+            "params": [
+              {
+                "name": "video_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Edit a video"
+        },
+        {
+          "info": {
+            "name": "Delete a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.vimeo.com/videos/:video_id",
+            "params": [
+              {
+                "name": "video_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a video"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
