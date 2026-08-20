@@ -44,6 +44,12 @@ apis:
     https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT
   baseURL: https://api.vimeo.com
   tags:
+  - Webhook
+  - Event
+  - OTT
+  - Subscription
+  - AsyncAPI
+  tags_raw:
   - Webhooks
   - Events
   - OTT
@@ -112,6 +118,8 @@ apis:
   humanURL: https://developer.vimeo.com/api/reference
   baseURL: https://api.vimeo.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
