@@ -167,6 +167,9 @@ apis:
   - type: GraphQL
     url: graphql/vimeo-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/vimeo-capability-edges.yml
+  name: Vimeo Business Capability Map
 - type: AgenticAccess
   url: agentic-access/vimeo-agentic-access.yml
 - type: VulnerabilityDisclosure
