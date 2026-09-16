@@ -1,6 +1,7 @@
-generated: '2026-07-15'
+generated: '2026-09-16'
 method: generated
-source: openapi/vimeo-openapi.yml
+source: openapi/vimeo-albums-api-openapi.yml, openapi/vimeo-channels-api-openapi.yml, openapi/vimeo-users-api-openapi.yml,
+  openapi/vimeo-videos-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
@@ -14,6 +15,88 @@ summary:
     write: 7
   human_in_the_loop_required: 0
 operations:
+- path: /users/{user_id}/albums
+  method: get
+  operationId: listUserAlbums
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /users/{user_id}/albums
+  method: post
+  operationId: createUserAlbum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /users/{user_id}/albums/{album_id}
+  method: get
+  operationId: getUserAlbum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /users/{user_id}/albums/{album_id}
+  method: delete
+  operationId: deleteUserAlbum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /channels
+  method: get
+  operationId: listChannels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /channels/{channel_id}
+  method: get
+  operationId: getChannel
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /channels/{channel_id}/videos
+  method: get
+  operationId: listChannelVideos
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /me
   method: get
   operationId: getAuthenticatedUser
@@ -40,6 +123,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /users/{user_id}
+  method: get
+  operationId: getUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /me/videos
   method: get
   operationId: listMyVideos
@@ -66,16 +159,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /users/{user_id}
-  method: get
-  operationId: getUser
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /users/{user_id}/videos
   method: get
   operationId: listUserVideos
@@ -131,88 +214,6 @@ operations:
 - path: /videos/{video_id}
   method: delete
   operationId: deleteVideo
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /channels
-  method: get
-  operationId: listChannels
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /channels/{channel_id}
-  method: get
-  operationId: getChannel
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /channels/{channel_id}/videos
-  method: get
-  operationId: listChannelVideos
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /users/{user_id}/albums
-  method: get
-  operationId: listUserAlbums
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /users/{user_id}/albums
-  method: post
-  operationId: createUserAlbum
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /users/{user_id}/albums/{album_id}
-  method: get
-  operationId: getUserAlbum
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /users/{user_id}/albums/{album_id}
-  method: delete
-  operationId: deleteUserAlbum
   x-agentic-access:
     action-class: acting
     consequence: write
