@@ -152,6 +152,8 @@ apis:
   humanURL: https://developer.vimeo.com/api/reference
   baseURL: https://api.vimeo.com
   tags:
+  - Video
+  tags_raw:
   - Videos
   properties:
   - type: OpenAPI
