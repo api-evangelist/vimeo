@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Vimeo Albums API
   version: '3.4'
@@ -8,9 +8,7 @@ info:
 
     Authentication uses OAuth 2.0 Bearer tokens. All requests are made
 
-    against https://api.vimeo.com.
-
-    '
+    against https://api.vimeo.com.'
   contact:
     name: Vimeo Developer Docs
     url: https://developer.vimeo.com/api/reference

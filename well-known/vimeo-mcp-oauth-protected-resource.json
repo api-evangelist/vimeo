@@ -1,0 +1,1 @@
+{"resource":"https://mcp.vimeo.com","authorization_servers":["https://mcp.vimeo.com/"],"scopes_supported":["public","private","stats","upload","edit","create"],"bearer_methods_supported":["header"]}

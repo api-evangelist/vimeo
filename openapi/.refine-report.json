@@ -1,10 +1,7 @@
 {
   "provider": "vimeo",
   "sources": [
-    "vimeo-albums-api-openapi.yml",
-    "vimeo-channels-api-openapi.yml",
-    "vimeo-users-api-openapi.yml",
-    "vimeo-videos-api-openapi.yml"
+    "_original/vimeo-openapi.yml"
   ],
   "outputs": [
     "vimeo-albums-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "vimeo-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "vimeo-albums-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vimeo-channels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vimeo-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "vimeo-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
