@@ -102,8 +102,6 @@ apis:
     url: https://developer.vimeo.com/api/authentication
   - type: OpenAPI Source
     url: https://github.com/vimeo/openapi
-  - type: GraphQL
-    url: graphql/vimeo-graphql.md
 - aid: vimeo:vimeo-channels-api
   name: Vimeo Channels API
   description: The Channels API from Vimeo — 3 operation(s) for channels.
@@ -122,8 +120,6 @@ apis:
     url: https://developer.vimeo.com/api/authentication
   - type: OpenAPI Source
     url: https://github.com/vimeo/openapi
-  - type: GraphQL
-    url: graphql/vimeo-graphql.md
 - aid: vimeo:vimeo-users-api
   name: Vimeo Users API
   description: The Users API from Vimeo — 2 operation(s) for users.
@@ -144,8 +140,6 @@ apis:
     url: https://developer.vimeo.com/api/authentication
   - type: OpenAPI Source
     url: https://github.com/vimeo/openapi
-  - type: GraphQL
-    url: graphql/vimeo-graphql.md
 - aid: vimeo:vimeo-videos-api
   name: Vimeo Videos API
   description: The Videos API from Vimeo — 3 operation(s) for videos.
@@ -166,8 +160,6 @@ apis:
     url: https://developer.vimeo.com/api/authentication
   - type: OpenAPI Source
     url: https://github.com/vimeo/openapi
-  - type: GraphQL
-    url: graphql/vimeo-graphql.md
 common:
 - type: CapabilityMap
   url: capabilities/vimeo-capability-edges.yml
