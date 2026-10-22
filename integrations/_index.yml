@@ -87,3 +87,45 @@
     detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
+- slug: vimeo-apis-guru-openapi-directory
+  label: APIs.guru OpenAPI Directory
+  partner: apis-guru
+  partner_name: APIs.guru OpenAPI Directory
+  category: API definition directory listing (OpenAPI)
+  type: register
+  channel: standard-directory
+  evidence: https://apis.guru/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: APIs.guru OpenAPI Directory
+    spec_file: null
+    standard: APIs.guru OpenAPI Directory
+    role: listed-in-directory
+    directory_provider: vimeo.com
+    matched_domain: vimeo.com
+    matched_by: domain+name-among-holders
+    apis_listed: 1
+    version_count: 1
+    first_added: '2018-12-22'
+    last_updated: '2019-03-17'
+    origin_publisher_hosted: false
+    origin_hosts:
+    - raw.githubusercontent.com
+    categories:
+    - entertainment
+    own_openapi_files: 5
+    listings:
+    - key: vimeo.com
+      title: Vimeo
+      preferred: '3.4'
+      versions: 1
+      swagger_url: https://api.apis.guru/v2/specs/vimeo.com/3.4/openapi.json
+      origin_url: https://raw.githubusercontent.com/vimeo/openapi/master/api.yaml
+      openapi_version: 3.0.2
+    signal_note: 'participation only: a community directory listing (APIs.guru collects definitions; the provider
+      did not file them). Signals: version_count, apis_listed, origin_publisher_hosted.'
+    detected_by: sweep-openapi-directory-apis-guru.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
