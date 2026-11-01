@@ -1,4 +1,4 @@
-# Vimeo (vimeo)
+# Vimeo
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,91 +66,128 @@
 
 Vimeo is a video hosting, creation, and streaming platform for creators, businesses, and enterprises that provides ad-free video hosting, live streaming, video editing, analytics, and OTT distribution. The Vimeo REST API enables programmatic upload, management, embedding, and analytics of videos, albums, channels, groups, and users using Bearer token (OAuth 2.0) authentication.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/apis.yml)
+**Areas:** Video · Streaming · Video Hosting · Live Streaming · Media · OTT
 
-## Scope
+## Vimeo on APIs.io
 
-- **Type:** Index
+Everything profiled for Vimeo is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/vimeo/](https://apis.io/providers/vimeo/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Video
-- Streaming
-- Video Hosting
-- Live Streaming
-- Media
-- OTT
+- [Vimeo Webhooks](https://apis.io/apis/vimeo/webhooks/) — AsyncAPI 2.6 specification for Vimeo's documented webhook surface, covering the Vimeo OTT customer and subscription lifecycle topics (customer.created,…
+- [Vimeo Albums API](https://apis.io/apis/vimeo/vimeo-albums-api/) — The Albums API from Vimeo — 2 operation(s) for albums.
+- [Vimeo Channels API](https://apis.io/apis/vimeo/vimeo-channels-api/) — The Channels API from Vimeo — 3 operation(s) for channels.
+- [Vimeo Users API](https://apis.io/apis/vimeo/vimeo-users-api/) — The Users API from Vimeo — 2 operation(s) for users.
+- [Vimeo Videos API](https://apis.io/apis/vimeo/vimeo-videos-api/) — The Videos API from Vimeo — 3 operation(s) for videos.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-11
-- **Modified:** 2026-05-30
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Vimeo API
+GraphQL schemas.
 
-REST API for uploading, managing, and streaming videos along with albums, channels, groups, users, comments, captions, live events, and analytics. Authentication uses OAuth 2.0 Bearer tokens.
+- [Moved to /providers/vimeo/](https://apis.io/graphqls/vimeo/vimeo-graphql/)
 
-- **Human URL:** [https://developer.vimeo.com/api/reference](https://developer.vimeo.com/api/reference)
-- **Base URL:** `https://api.vimeo.com`
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Video
-- Upload
-- Streaming
-- Live Events
-- Channels
-- Analytics
+- [vimeo](https://apis.io/servers/vimeo/vimeo/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://developer.vimeo.com/api/reference)
-- [Getting Started](https://developer.vimeo.com/api/guides/start)
-- [Authentication](https://developer.vimeo.com/api/authentication)
-- [OpenAPI](https://github.com/vimeo/openapi/blob/master/api.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Open A P I  Source](https://github.com/vimeo/openapi)
-- [Postman Collection](collections/vimeo.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vimeo.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Vimeo Webhooks
+- [Vimeo Agentic Access](https://apis.io/agentic-access/vimeo/vimeo-agentic-access/)
 
-AsyncAPI 2.6 specification for Vimeo's documented webhook surface, covering the Vimeo OTT customer and subscription lifecycle topics (customer.created, customer.product.renewed, customer.tvod.created, and related events) delivered via HTTPS POST to a subscriber URL. Vimeo's standard API webhooks (App Webhooks) are configured per API app from the developer dashboard. Note: Vimeo's official documentation states the standard API does not currently emit a webhook on transcode completion; transcode status must be polled.
+#### Collections (6)
 
-- **Human URL:** [https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT](https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT)
-- **Base URL:** `https://api.vimeo.com`
+Postman and Open Collection request collections.
 
-#### Tags
+- [Vimeo API](https://apis.io/collections/vimeo/open-vimeo/)
+- [Vimeo Albums API](https://apis.io/collections/vimeo/open-vimeo-albums-api/)
+- [Vimeo Webhooks API](https://apis.io/collections/vimeo/open-vimeo-asyncapi/)
+- [Vimeo Albums Channels API](https://apis.io/collections/vimeo/open-vimeo-channels-api/)
+- [Vimeo Albums Users API](https://apis.io/collections/vimeo/open-vimeo-users-api/)
+- [Vimeo Albums Videos API](https://apis.io/collections/vimeo/open-vimeo-videos-api/)
 
-- Webhooks
-- Events
-- OTT
-- Subscriptions
-- AsyncAPI
+#### Security (3)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://help.vimeo.com/hc/en-us/articles/12427268063761-Supported-webhook-topics-and-what-they-indicate-on-Vimeo-OTT)
-- [Payload  Reference](https://help.vimeo.com/hc/en-us/articles/12427295198609-Properties-of-a-webhook-payload-on-Vimeo-OTT)
-- [Setup  Guide](https://help.vimeo.com/hc/en-us/articles/12427285998225-Create-a-Vimeo-OTT-webhook)
-- [App  Webhook  Reference](https://developer.vimeo.com/api/reference/response/api-app-webhook)
-- [Transcode  Status  Note](https://help.vimeo.com/hc/en-us/articles/12427776744593-Get-video-transcode-status-from-the-API)
-- [AsyncAPI](https://raw.githubusercontent.com/api-evangelist/vimeo/refs/heads/main/openapi/vimeo-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/vimeo.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vimeo.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Vimeo Authentication](https://apis.io/security/vimeo/vimeo-authentication/)
+- [Vimeo Domain Security](https://apis.io/security/vimeo/vimeo-domain-security/)
+- [Vimeo Vulnerability Disclosure](https://apis.io/security/vimeo/vimeo-vulnerability-disclosure/)
 
-## Common Properties
+#### OAuth scopes (1)
 
-- [LinkedIn](https://www.linkedin.com/company/vimeo)
+The permissions the API asks for.
+
+- [Vimeo Scopes](https://apis.io/scopes/vimeo/vimeo-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://vimeo.com)
 - [Documentation](https://developer.vimeo.com/)
-- [Developer  Portal](https://developer.vimeo.com/)
-- [Sign Up](https://vimeo.com/join)
 - [Pricing](https://vimeo.com/upgrade)
-- [GitHub Organization](https://github.com/vimeo)
+- [Blog](https://vimeo.com/blog/feed)
+- [GitHub](https://github.com/vimeo)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 36.8** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 53.2 |
+| Contract governance | 0.0 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 45.2 |
+| Access clarity | 23.7 |
+
+**Agent readiness 48.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | unknown |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/vimeo/](https://apis.io/providers/vimeo/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Vimeo: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/vimeo/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
